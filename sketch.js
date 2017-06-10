@@ -19,27 +19,22 @@ function ruleNum( n ) {
 var rule = ruleNum( 30 );
 
 function neighbours( array ) {
-  
+  var nbors = [];
+  for( let i = 0; i < array.length; i++ ) {
+    let nbor = '';
+    
+    nbor += ( array[i-1] === undefined ) ? 0 : array[i-1];
+    nbor += array[i];
+    nbor += ( array[i+1] === undefined ) ? 0 : array[i+1] ;
+    nbor = parseInt( nbor, 2 );
+    nbors.push( nbor );
+  }
+  return nbors;
 }
 
 function nextPerm( array, rule ) {
   var output = [];
-  for( let i = 0; i < array.length; i++ ) {
-    let nbor = '';
-    if( array[i-1] === undefined ) {
-      nbor += 0;
-    } else {
-      nbor += array[i-1];
-    }
-    nbor += array[i];
-    if( array[i+1] === undefined ) {
-      nbor += 0;
-    } else {
-      nbor += array[i+1];
-    }
-    output.push(nbor);
-    
-  }
+  var nbors = neighbours( array );
   return output;
 }
 
