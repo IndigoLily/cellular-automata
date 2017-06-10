@@ -48,7 +48,9 @@ function drawGrid( grid ) {
         rect(x*mult,y*mult,mult,mult);
       }
     }
+    console.log( y/dim*100 + "% done" );
   }
+  console.log( '100% done' );
 }
 
 function updateGrid( grid ) {
@@ -72,8 +74,8 @@ function makeGrid() {
 
 var grid = [];
 var rule = ruleNum( Math.floor(Math.random()*256) );
-var dim = 64;
-var mult = 10;
+var dim = 256;
+var mult = 2;
 
 function setup() {
   const canv = createCanvas( dim*mult, dim*mult );
@@ -81,10 +83,10 @@ function setup() {
   const randall = select('#randall');
   const randrule = select('#randrule');
   const randcells = select('#randcells');
+  
   div.child( canv );
-  div.child( randall );
-  div.child( randrule );
-  div.child( randcells );
+  div.child( select('#buttons') );
+  
   randall.mousePressed(function(){
     rule = ruleNum( Math.floor(Math.random()*256) );
     grid = makeGrid();
@@ -96,9 +98,10 @@ function setup() {
   randcells.mousePressed(function(){
     grid = makeGrid();
   });
+  
   grid = makeGrid();
 }
 
 function draw() {
-  
+  noLoop();
 }
