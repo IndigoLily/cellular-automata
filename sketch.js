@@ -23,7 +23,7 @@ function neighbours( array ) {
     nbor += array[i];
     nbor += ( array[i+1] === undefined ) ? 0 : array[i+1] ;
     nbor = parseInt( nbor, 2 );
-    // nbor = 7 - nbor;
+    nbor = 7 - nbor;
     nbors.push( nbor );
   }
   return nbors;
@@ -39,17 +39,32 @@ function nextPerm( array, rule ) {
 }
 
 var grid = [];
-var rule = ruleNum( 30 );
-const mult = 10;
-const dim = 10;
+var rule = ruleNum( Math.floor(Math.random()*256) );
+var dim = 256;
+var mult = 3;
 
 function setup() {
   createCanvas( dim*mult, dim*mult );
+  var init = [];
+  for( let i = 0; i < dim; i++ ) {
+    init.push( (Math.random()>.9)?1:0 );
+  }
+  grid.push( init );
+  for( let i = 0; i < dim; i++ ) {
+    grid.push( nextPerm( grid[i], rule ) );
+  }
+  
+  background( 255 );
+  fill( 0 );
   noStroke();
-  fill(0);
-  grid.push([0,0,0,0,1,0,0,0,0,0]);
+  for( let y = 0; y < dim; y++ ) {
+    for( let x = 0; x < dim; x++ ) {
+      if( grid[y][x] === 1 ) {
+        rect(x*mult,y*mult,mult,mult);
+      }
+    }
+  }
+  noLoop();
 }
 
-function draw() {
-  background( 192 );
-}
+function draw() {}
