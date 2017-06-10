@@ -68,8 +68,8 @@ function makeGrid() {
 
 var grid = [];
 var rule = ruleNum( Math.floor(Math.random()*256) );
-var dim = 256;
-var mult = 3;
+var dim = 64;
+var mult = 10;
 
 function setup() {
   const canv = createCanvas( dim*mult, dim*mult );
@@ -79,6 +79,14 @@ function setup() {
   div.child( canv );
   div.child( randall );
   div.child( randrule );
+  randall.mousePressed(function(){
+    rule = ruleNum( Math.floor(Math.random()*256) );
+    makeGrid();
+  });
+  // randrule.mousePressed(function(){
+  //   rule = ruleNum( Math.floor(Math.random()*256) );
+  //   updateGrid();
+  // });
   grid = makeGrid();
 }
 
