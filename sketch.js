@@ -38,21 +38,7 @@ function nextPerm( array, rule ) {
   return output;
 }
 
-function updateGrid( grid ) {
-  
-}
-
-function makeGrid() {
-  var grid = [];
-  var init = [];
-  for( let i = 0; i < dim; i++ ) {
-    init.push( (Math.random()>.9)?1:0 );
-  }
-  grid.push( init );
-  for( let i = 0; i < dim-1; i++ ) {
-    grid.push( nextPerm( grid[i], rule ) );
-  }
-  
+function drawGrid( grid ) {
   background( 255 );
   fill( 0 );
   noStroke();
@@ -63,7 +49,25 @@ function makeGrid() {
       }
     }
   }
+}
+
+function updateGrid( grid ) {
+  grid = [ grid[0] ];
+  for( let i = 0; i < dim-1; i++ ) {
+    grid.push( nextPerm( grid[i], rule ) );
+  }
+  drawGrid( grid );
   return grid;
+}
+
+function makeGrid() {
+  var grid = [];
+  var init = [];
+  for( let i = 0; i < dim; i++ ) {
+    init.push( (Math.random()>.9)?1:0 );
+  }
+  grid.push( init );
+  return updateGrid( grid );
 }
 
 var grid = [];
@@ -76,19 +80,25 @@ function setup() {
   const div = select('#container');
   const randall = select('#randall');
   const randrule = select('#randrule');
+  const randcells = select('#randcells');
   div.child( canv );
   div.child( randall );
   div.child( randrule );
+  div.child( randcells );
   randall.mousePressed(function(){
     rule = ruleNum( Math.floor(Math.random()*256) );
-    makeGrid();
+    grid = makeGrid();
   });
-  // randrule.mousePressed(function(){
-  //   rule = ruleNum( Math.floor(Math.random()*256) );
-  //   updateGrid();
-  // });
+  randrule.mousePressed(function(){
+    rule = ruleNum( Math.floor(Math.random()*256) );
+    grid = updateGrid( grid );
+  });
+  randcells.mousePressed(function(){
+    grid = makeGrid();
+  });
   grid = makeGrid();
 }
 
 function draw() {
+  
 }
