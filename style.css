@@ -13,15 +13,18 @@ body, html {
   margin: 0;
 }
 
-input[type="button"] {
+input {
   position: relative;
-  /*left: 50%;*/
-  /*transform: translateX(-50%);*/
-  background-color: #aaa;
+  background-color: #ccc;
+  outline: none;
   border: none;
   border-radius: 6px;
   padding: 10px;
   margin: 10px 20px;
-  /*width: 46%;*/
-  /*display: block;*/
+  transition: background-color .3s;
+  cursor: pointer;
+}
+
+input:hover {
+  background-color: #ddd;
 }
