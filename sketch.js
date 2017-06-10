@@ -38,19 +38,18 @@ function nextPerm( array, rule ) {
   return output;
 }
 
-var grid = [];
-var rule = ruleNum( Math.floor(Math.random()*256) );
-var dim = 256;
-var mult = 3;
+function updateGrid( grid ) {
+  
+}
 
-function setup() {
-  createCanvas( dim*mult, dim*mult );
+function makeGrid() {
+  var grid = [];
   var init = [];
   for( let i = 0; i < dim; i++ ) {
     init.push( (Math.random()>.9)?1:0 );
   }
   grid.push( init );
-  for( let i = 0; i < dim; i++ ) {
+  for( let i = 0; i < dim-1; i++ ) {
     grid.push( nextPerm( grid[i], rule ) );
   }
   
@@ -64,7 +63,24 @@ function setup() {
       }
     }
   }
-  noLoop();
+  return grid;
 }
 
-function draw() {}
+var grid = [];
+var rule = ruleNum( Math.floor(Math.random()*256) );
+var dim = 256;
+var mult = 3;
+
+function setup() {
+  const canv = createCanvas( dim*mult, dim*mult );
+  const div = select('#container');
+  const randall = select('#randall');
+  const randrule = select('#randrule');
+  div.child( canv );
+  div.child( randall );
+  div.child( randrule );
+  grid = makeGrid();
+}
+
+function draw() {
+}
